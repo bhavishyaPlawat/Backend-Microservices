@@ -73,11 +73,12 @@ client.listTools().then(async (resp) => {
       ],
     },
   });
-
+  console.log("AI response", aiResponse.functionCalls);
   aiResponse.functionCalls.forEach(async (call) => {
-    client.callTool({
+    const result = await client.callTool({
       name: call.name,
-      arguments: call.arguments,
+      arguments: call.args,
     });
+    console.log("output", result);
   });
 });
