@@ -25,3 +25,12 @@ export async function createProduct(product) {
     throw new Error(getErrorMessage(error, "Failed to create product"));
   }
 }
+
+export async function deleteProduct(productId) {
+  try {
+    const { data } = await productsApi.delete(`/${productId}`);
+    return data;
+  } catch (error) {
+    throw new Error(getErrorMessage(error, "Failed to delete product"));
+  }
+}

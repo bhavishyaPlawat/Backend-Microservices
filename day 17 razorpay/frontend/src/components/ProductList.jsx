@@ -1,6 +1,6 @@
 import ProductCard from "./ProductCard";
 
-function ProductList({ products, loading, onRefresh, onBuy }) {
+function ProductList({ products, loading, onRefresh, onBuy, onDelete }) {
   return (
     <section>
       <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
@@ -34,6 +34,7 @@ function ProductList({ products, loading, onRefresh, onBuy }) {
               product={product}
               key={product._id}
               onBuy={onBuy}
+              onDelete={onDelete}
             />
           ))}
         </div>

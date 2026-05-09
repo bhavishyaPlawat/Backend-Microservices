@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { createProduct, getProducts } from "../api/products";
+import { createProduct, getProducts, deleteProduct } from "../api/products";
 import AppHeader from "./AppHeader";
 import ProductForm from "./ProductForm";
 import ProductList from "./ProductList";
@@ -75,6 +75,16 @@ function ProductDashboard() {
     setMessage(`Selected ${product.title} for ${currency} ${amount}`);
   }
 
+  async function handleDelete(productId) {
+    try {
+      await deleteProduct(productId);
+      setMessage("Product deleted successfully");
+      await fetchProducts();
+    } catch (error) {
+      setMessage(error.message);
+    }
+  }
+
   useEffect(() => {
     fetchProducts();
   }, []);
@@ -97,6 +107,7 @@ function ProductDashboard() {
           loading={loading}
           onRefresh={fetchProducts}
           onBuy={handleBuy}
+          onDelete={handleDelete}
         />
       </div>
     </div>

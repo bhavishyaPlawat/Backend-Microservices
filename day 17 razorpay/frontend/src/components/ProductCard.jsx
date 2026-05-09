@@ -1,6 +1,6 @@
 import PaymentButton from "./PaymentButton";
 
-function ProductCard({ product, onBuy }) {
+function ProductCard({ product, onBuy, onDelete }) {
   const currency = product.price?.currency || product.price?.curreny || "INR";
   const amount = product.price?.amount ?? 0;
 
@@ -40,7 +40,31 @@ function ProductCard({ product, onBuy }) {
           </p>
         )}
 
-        <PaymentButton productId={amount} />
+        <div className="mt-4 flex gap-2">
+          <PaymentButton productId={amount} />
+          <button
+            onClick={() => {
+              if (
+                window.confirm(
+                  `Delete "${product.title}"? This action cannot be undone.`,
+                )
+              ) {
+                onDelete(product._id);
+              }
+            }}
+            style={{
+              padding: "10px 20px",
+              background: "#ef4444",
+              color: "#fff",
+              border: "none",
+              borderRadius: "5px",
+              cursor: "pointer",
+              flex: 1,
+            }}
+          >
+            Delete
+          </button>
+        </div>
       </div>
     </article>
   );

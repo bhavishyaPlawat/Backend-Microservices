@@ -41,15 +41,17 @@ async function verifyPayment(req, res) {
   const secret = process.env.RAZORPAY_KEY_SECRET;
 
   try {
+    // Correct way to import the verification utility from the package
     const {
       validatePaymentVerification,
-    } = require("../node_modules/razorpay/dist/utils/razorpay-utils.js");
+    } = require("razorpay/dist/utils/razorpay-utils");
 
     const result = validatePaymentVerification(
       { order_id: razorpayOrderId, payment_id: razorpayPaymentId },
       signature,
       secret,
     );
+
     if (result) {
       const payment = await paymentModel.findOne({ orderId: razorpayOrderId });
       payment.paymentId = razorpayPaymentId;
@@ -61,7 +63,7 @@ async function verifyPayment(req, res) {
       res.status(400).send("Invalid signature");
     }
   } catch (error) {
-    console.log(error);
+    console.error("Verification Error:", error); // Logs the specific error to your console
     res.status(500).send("Error verifying payment");
   }
 }
