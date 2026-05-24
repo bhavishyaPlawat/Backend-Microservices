@@ -48,13 +48,13 @@ export default defineConfig({
           },
         ],
       },
-      workbox:{
-        runtimeCaching:[
+      workbox: {
+        runtimeCaching: [
           {
-            handler:  "CacheFirst",
-          }
-        ]
-      }
+            handler: "CacheFirst",
+          },
+        ],
+      },
       registerType: "autoUpdate",
     }),
   ],
