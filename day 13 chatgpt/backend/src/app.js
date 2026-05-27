@@ -20,6 +20,16 @@ app.use(
 app.use(express.json());
 app.use(cookieParser());
 
+app.get("/health", (req, res) => {
+  console.log("🔍 /health endpoint hit");
+  res.json({
+    success: true,
+    message: "Digital Saathi API is running",
+    env: env.NODE_ENV,
+    timestamp: new Date().toISOString(),
+  });
+});
+
 /* Using Routes */
 app.use("/api/auth", authRoutes);
 app.use("/api/chat", chatRoutes);
